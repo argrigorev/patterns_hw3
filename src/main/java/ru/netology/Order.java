@@ -15,31 +15,6 @@ public class Order {
         this.status = "В обработке";
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void updateStatus(String newStatus) {
-        this.status = newStatus;
-    }
-
-    public void trackOrder() {
-        System.out.println("Заказ #" + orderId + " - " + status);
-    }
-
-    public void returnOrder() {
-        if (status.equals("Доставлен")) {
-            System.out.println("Вы оформили возврат заказа #" + orderId);
-            status = "Возвращен";
-        } else {
-            System.out.println("Нельзя вернуть заказ, который еще не доставлен!");
-        }
-    }
-
     public void showOrderDetails() {
         System.out.println("Заказ #" + orderId + " содержит следующие товары:");
         for (Product p : products) {
