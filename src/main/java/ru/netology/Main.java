@@ -29,7 +29,8 @@ public class Main {
             System.out.println("4. Просмотреть корзину");
             System.out.println("5. Оформить заказ");
             System.out.println("6. Просмотреть заказы");
-            System.out.println("7. Выход");
+            System.out.println("7. Фильтрация товаров");
+            System.out.println("8. Выход");
             System.out.print("Выберите действие: ");
 
             int choice = scanner.nextInt();
@@ -81,8 +82,42 @@ public class Main {
                     }
                     break;
                 case 7:
+                    System.out.println("Варианты фильтрации:");
+                    System.out.println("1. По названию (планшет/часы и т.д.");
+                    System.out.println("2. По производителю");
+                    System.out.print("Выберите фильтр: ");
+                    int filterChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    List<Product> filteredProducts = new ArrayList<>();
+                    switch (filterChoice) {
+                        case 1:
+                            System.out.print("Введите название: ");
+                            String keyword = scanner.nextLine();
+                            ProductFilter keywordFilter = new KeywordFilter(keyword);
+                            filteredProducts = store.getFilteredProducts(keywordFilter);
+                            break;
+                        case 2:
+                            System.out.print("Введите производителя: ");
+                            String manufacturer = scanner.nextLine();
+                            ProductFilter manufacturerFilter = new ManufacturerFilter(manufacturer);
+                            filteredProducts = store.getFilteredProducts(manufacturerFilter);
+                            break;
+                        default:
+                            System.out.println("Неверный выбор.");
+                    }
+
+                    if (filteredProducts.isEmpty()) {
+                        System.out.println("Товары не найдены по выбранному фильтру.");
+                    } else {
+                        for (Product p : filteredProducts) {
+                            System.out.println(p.getInfo());
+                        }
+                    }
+                    break;
+                case 8:
                     running = false;
-                    System.out.println("Выход из программы.");
+                    System.out.println("Выход из программы...");
                     break;
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
